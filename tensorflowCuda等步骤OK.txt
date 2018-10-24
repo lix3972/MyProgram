@@ -1,0 +1,250 @@
+tensorflow与cudnn有匹配关系(tf与Cuda是因为分别与cudnn匹配产生的间接关系)
+http://github.com/tensorflow/tensorflow/releases
+Ctrl+F 搜索 cudnn 查看对应版本
+------------------------------------
+下载安装cudnn官方指南：
+docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html
+cuda包括nvidia驱动，下载安装在上述网址上也有对应链接
+============================================================
+安装anaconda 
+bash anaconda*.sh
+完成后关掉终端再打开一次，查看python版本
+anaconda-navigator 打开对应界面可以安装不同版本
+================================================================
+
+修改默认的更新源呢：
+
+首先备份：$sudo cp /etc/apt/sources.list ~/sources.list_backup
+
+修改：$sudo gedit /etc/apt/sources.list
+清空并替换为
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+# 默认注释了源码镜像以提高 apt update 速度，如有需要可自行取消注释
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main restricted universe multiverse
+deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse
+
+# 预发布软件源，不建议启用
+# deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse
+# deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+=========================================================
+
+执行
+$sudo apt-get update
+$sudo apt-get upgrade
+#安装pip
+sudo  apt-get install python3-pip python3-dev
+pip install --upgrade pip
+	pip install pyhamcrest
+	pip install twisted
+
+==========================================================
+更新pip源
+#在 ~/.config 下新建pip文件夹  
+	cd ~/.config 
+	mkdir pip
+
+#$cd ~/.config/pip
+#$vim pip.conf 
+  可以用touch pip.conf
+	sudo gedit pip.conf
+加入以下内容
+%%%%%%%%%%%%%%%%%%%%%%
+[global] 
+index-url = https://pypi.tuna.tsinghua.edu.cn/simple 
+%%%%%%%%%%%%%%%%%%%%%%
+
+保存退出
+=====================================
+安装 numpy，是编译 tensorflow 和 opencv3 的依赖
+$sudo pip3 install numpy  可以不用sudo，直接pip安装
+=====================================
+安装tensorflow （可以在cudnn后安装，先装也可以，要注意版本匹配）
+
+pip3 install tensorflow-gpu （安装最新版） 或下载好，pip3 install 指定tensorflow*.whl文件或对应网址
+
+====================================================================
+ 运行tensorflow测试程序时，出现 */h5py *：FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.  from ._conv import register_converters as _register_converters 的错误
+解决方法，升级 h5py 例如：
+pip install h5py==2.8.0rc1
+=======================================================================
+
+安装Nvidia驱动（也可在安装CUDA9同时安装驱动）
+驱动版本查询 Nvidia驱动程序 https://www.nvidia.cn/Download/index.aspx?lang=cn
+执行以下步骤
+$sudo apt-get purge nvidia* #卸载所有显卡驱动 
+$sudo add-apt-repository ppa:graphics-drivers/ppa #Personal Package Archives,也就是个人软件包集，添加驱动程序下载源
+$sudo apt-get update && sudo apt-get install nvidia-384 nvidia-settings 
+#nvidia官网驱动  https://www.nvidia.cn/Download/index.aspx?lang=cn
+          titan Xp 可能是390 399.24  387   390   410(重启成功)  
+如果装错了：sudo apt-get remove --purge nvidia* 
+            sudo apt-get install autoremove --purge nvidia*
+
+!!!!！重启
+$ nvidia-smi #输入命令，输出显卡信息及驱动程序版本
+=====================================================
+安装CUDA9
+CUDA Toolkits download  https://developer.nvidia.com/cuda-toolkit-archive  li*2@126.com或163  SHUt907a
+选择 CUDA9.0 ubuntu16.04 deb(local)
+下载完成后
+run文件执行(推荐)
+	
+    Run `sudo sh cuda_9.0.176_384.81_linux.run`
+    不要装OpenGL(网上说的，没有试过）
+
+deb文件执行
+	$sudo dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64.deb
+	$sudo apt-key add /var/cuda-repo-<version>/7fa2af80.pub
+ 	#sudo apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
+ 	#安装cuda10: sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub (目前tensorflow还不支持cuda10,不支持cudnn7.3)
+	$sudo apt-get update
+	$sudo apt-get install cuda
+
+测试CUDA9.0  这个还要装东西，
+$sudo apt install nvidia-cuda-toolkit
+可以选择不运行nvcc -V
+$nvcc -V #输出CUDA版本信息
+
+测试Samples
+$mkdir test
+$cd test
+$cp -r /usr/local/cuda-9.0/samples/ . 
+$cd samples/ 
+$make -j16
+$cd ./1_Utilities/bandwidthTest
+$./bandwidthTest 
+
+查看最后结果，如果是Result = PASS，那就ok。
+接着cd到根目录。编辑.bashrc文件
+$sudo gedit .bashrc
+在最后加上
+%%%%%%%%%%%%%%%%%%%
+#cuda9.0
+export PATH=/usr/local/cuda/bin${PATH:+:${PATH}} 
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}} 
+export CUDA_HOME=/usr/local/cuda
+%%%%%%%%%%%%%%%%%%%%%
+保存退出。接着在命令窗口输入
+$source .bashrc
+让文件生效。
+
+（请勿选择9.1，否则编译Tensorflow会出现问题） 
+如果误装了其他版本可通过以下方法卸载并重装
+$sudo apt-get --purge remove cuda
+$sudo apt autoremove
+$sudo apt-get clean
+$sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64.deb
+$sudo apt-get update
+$sudo apt-get install cuda-9-0
+
+==================================
+安装cudnn7
+下载地址 https://developer.nvidia.com/cudnn
+注意自己的路径及cudnn版本
+tar -zxvf cudnn-9.0-linux-x64-v7.tgz 
+sudo cp cuda/include/cudnn.h /usr/local/cuda/include/ 
+sudo cp -a cuda/lib64/libcudnn* /usr/local/cuda/lib64/ 
+sudo chmod a+r /usr/local/cuda/include/cudnn.h 
+sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
+
+注意上面第二条指令，这里多加了一个-a，在官方给的方案里面没有，我建议你这样做，否则会出现连接出错的问题。如果你忘记了，可以参考下面做法
+#软链接至关重要
+cd /usr/local/cuda/lib64/
+sudo rm -rf libcudnn.so libcudnn.so.7.0  
+sudo ln -s libcudnn.so.7.0.5 libcudnn.so.7.0  
+sudo ln -s libcudnn.so.7.0 libcudnn.so 
+=====================================================
+安装Bazel  没有装过，可以先不装
+官方文档  https://docs.bazel.build/versions/master/install-ubuntu.html
+==========================================================
+安装opencv3.3  没有装过，可以先不装
+CUDA9.0只支持opencv3.3以上版本
+1、下载opencv源码：https://github.com/opencv/opencv 
+2、下载 opencv_contrib 源程序 https://github.com/opencv/opencv_contrib
+下面开始安装 
+1、先将opencv和opencv_contrib解压到某个目录下，我的是在 /usr/opencv
+2、依次执行下面的命令
+$sudo apt-get update
+$sudo apt-get upgrade
+
+#opencv3.3的依赖
+$sudo apt-get install build-essential cmake pkg-config
+$sudo apt-get install libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev
+
+$sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+
+$sudo apt-get install libxvidcore-dev libx264-dev
+
+$sudo apt-get install libgtk-3-dev
+
+$sudo apt-get install libatlas-base-dev gfortran
+
+$sudo apt-get install python3.5-dev python-numpy libtbb2 libtbb-dev  libdc1394-22-dev
+
+进入opencv源代目录（如：/usr/opencv/opencv-master）,创建build目录
+mkdir build
+cd build
+
+执行编译命令
+sudo cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D PYTHON3_EXECUTABLE=/usr/bin/python3 -D PYTHON_INCLUDE_DIR=/usr/include/python3.5 -D PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5m.so -D PYTHON3_NUMPY_INCLUDE_DIRS=/usr/local/lib/python3.5/dist-packages/numpy/core/include -D INSTALL_PYTHON_EXAMPLES=ON -D INSTALL_C_EXAMPLES=OFF -D OPENCV_EXTRA_MODULES_PATH=/usr/opencv/opencv_contrib-master/modules -D PYTHON_EXECUTABLE=/usr/lib/python3 -D BUILD_EXAMPLES=ON ..
+
+注意：在执行上面命令时，正常来说会到ippicv处时执行不下去，编译会退出，因为需要依赖 ippicv 的包编译时下载很慢，出现网络异常下载不下来。解决方法是建议先手动下载 
+ippicv_2017u2_lnx_intel64_20170828.tgz (github下载链接) 
+同时用该文件覆盖 /usr/opencv/opencv-master/ .cache(注意有“.”)目录下的 ippicv文件（文件名这里注意是一个很长的通过guid生成的名字，不能改变）。
+如果编译通过当我没说 :）
+$sudo make -j16
+$sudo make clean
+$sudo make install
+
+$sudo ldconfig
+
+如果没有问题的话就大功告成了。
+=============================================================================
+Keras框架搭建
+相关开发包安装
+在终端中输入:
+>>> sudo pip install -U --pre pip setuptools wheel
+>>> sudo pip install -U --pre numpy scipy matplotlib scikit-learn scikit-image
+>>> sudo pip install -U --pre tensorflow-gpu
+# >>> sudo pip install -U --pre tensorflow ## CPU版本
+>>> sudo pip install -U --pre keras
+安装完毕后，输入python，然后输入：
+>>> import tensorflow
+>>> import keras
+无错输出即可
+Keras中mnist数据集测试
+下载Keras开发包
+>>> git clone https://github.com/fchollet/keras.git
+>>> cd keras/examples/
+>>> python mnist_mlp.py
+程序无错进行，至此，keras安装完成。
+
+==============================================================================
+https://blog.csdn.net/javahaoshuang3394/article/details/76425009
+1、把Ubuntu16.04装在了虚拟机里了，后面试了N次安装都失败，想想应该是虚拟机应该用的是虚拟的显卡驱动
+2、整个机器只安装Ubuntu16.04系统之后，需要先将Ubuntu默认安装并使用的nouveau集成显卡驱动禁用。
+（1）改变blacklist.conf文件的属性，使之可编辑
+sudo chmod 666 /etc/modprobe.d/blacklist.conf
+（2）用gedit软件打开，用vi也可以
+sudo gedit /etc/modprobe.d/blacklist.conf
+（3）在文件末尾加入以下几句话
+blacklist vga16fb
+blacklist nouveau
+blacklist rivafb
+blacklist rivatv
+blacklist nvidiafb
+（4）保存
+（5）按下ctrl+alt+F1进入控制台模式
+sudo service lightdm stop
+（6）输入以下命令，使得（1）到（4）步的配置生效，这一步很关键，否则安装N卡驱动时会一直提示目前运行的是nouveau驱动
+sudo update-initramfs -u
+（7）重启，按下ctrl+alt+F1进入控制台模式
+（8）安装N卡驱动（不知为何我用sh不行，只能用bash）
+sudo bash NVIDIA-Linux-x86_64-384.47.run
+（9）sudo service lightdm start进入图形界面，字体恢复正常代表N卡驱动安装成功
