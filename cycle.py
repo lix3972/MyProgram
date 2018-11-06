@@ -1,4 +1,4 @@
-
+#为了调整戴眼镜的初始位置
 import matplotlib.pyplot as plt
 glassesX=[]
 glassesY=[]
