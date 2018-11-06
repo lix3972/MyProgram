@@ -1,4 +1,4 @@
-%Éú³ÉÍ¼Æ¬ÅÅÁĞË³Ğò¾ØÕóglassesXY£¬Á½ÁĞ
+%ç”Ÿæˆå›¾ç‰‡æ’åˆ—é¡ºåºçŸ©é˜µglassesXYï¼Œä¸¤åˆ—
 pause(2);
 i=1;
 for x = 0:10
@@ -16,7 +16,7 @@ for x =0:20 %in range(21):
     glassesXY(i,2)=-floor((100-(x-10)^2)^0.5);
     i=i+1;
 end
-%¶ÁÍ¼Æ¬
+%è¯»å›¾ç‰‡
 pathInp='D:\glassesDemo\input\image_g0_input';%+xy.png
 pathOut='D:\glassesDemo\output\image_g0_output';
 for j=1:53
@@ -27,9 +27,9 @@ for j=1:53
     imgInp=imread(pathImgInp);
     imgOut=imread(pathImgOut);
     subplot(121),imshow(imgInp);
-    title('³õÊ¼Î»ÖÃ','Color','y');
+    title('åˆå§‹ä½ç½®','Color','y','Fontsize',20);
     subplot(122),imshow(imgOut);
-    title('ÍøÂçµ÷Õûºó','Color','y');
+    title('ç½‘ç»œè°ƒæ•´å','Color','y');
     pause(0.15);
 end
     
