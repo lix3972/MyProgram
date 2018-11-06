@@ -1,25 +1,27 @@
-tensorflowÓëcudnnÓĞÆ¥Åä¹ØÏµ(tfÓëCudaÊÇÒòÎª·Ö±ğÓëcudnnÆ¥Åä²úÉúµÄ¼ä½Ó¹ØÏµ)
+### tensorflowä¸cudaç‰ˆæœ¬åŒ¹é… 
+tensorflowå®˜ç½‘åªæ˜¾ç¤ºtensorflowä¸cudnnæœ‰åŒ¹é…å…³ç³»(æ¨æµ‹ï¼štfä¸Cudaæ˜¯å› ä¸ºåˆ†åˆ«ä¸cudnnåŒ¹é…äº§ç”Ÿçš„é—´æ¥å…³ç³»)
 http://github.com/tensorflow/tensorflow/releases
-Ctrl+F ËÑË÷ cudnn ²é¿´¶ÔÓ¦°æ±¾
+Ctrl+F æœç´¢ cudnn æŸ¥çœ‹å¯¹åº”ç‰ˆæœ¬
+ç½‘ä¸Šæœ‰äººè¯•é”™ï¼Œæ€»ç»“å‡ºæ¥æ˜¯å¦åŒ¹é…ã€‚
 ------------------------------------
-ÏÂÔØ°²×°cudnn¹Ù·½Ö¸ÄÏ£º
+###ä¸‹è½½å®‰è£…cudnnå®˜æ–¹æŒ‡å—ï¼š
 docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html
-cuda°üÀ¨nvidiaÇı¶¯£¬ÏÂÔØ°²×°ÔÚÉÏÊöÍøÖ·ÉÏÒ²ÓĞ¶ÔÓ¦Á´½Ó
+cudaåŒ…æ‹¬nvidiaé©±åŠ¨ï¼Œä¸‹è½½å®‰è£…åœ¨ä¸Šè¿°ç½‘å€ä¸Šä¹Ÿæœ‰å¯¹åº”é“¾æ¥
 ============================================================
-°²×°anaconda 
+###å®‰è£…anaconda 
 bash anaconda*.sh
-Íê³Éºó¹ØµôÖÕ¶ËÔÙ´ò¿ªÒ»´Î£¬²é¿´python°æ±¾
-anaconda-navigator ´ò¿ª¶ÔÓ¦½çÃæ¿ÉÒÔ°²×°²»Í¬°æ±¾
+å®Œæˆåå…³æ‰ç»ˆç«¯å†æ‰“å¼€ä¸€æ¬¡ï¼ŒæŸ¥çœ‹pythonç‰ˆæœ¬
+anaconda-navigator æ‰“å¼€å¯¹åº”ç•Œé¢å¯ä»¥å®‰è£…ä¸åŒç‰ˆæœ¬
 ================================================================
 
-ĞŞ¸ÄÄ¬ÈÏµÄ¸üĞÂÔ´ÄØ£º
+###ä¿®æ”¹é»˜è®¤çš„æ›´æ–°æºï¼š
 
-Ê×ÏÈ±¸·İ£º$sudo cp /etc/apt/sources.list ~/sources.list_backup
+é¦–å…ˆå¤‡ä»½ï¼š$sudo cp /etc/apt/sources.list ~/sources.list_backup
 
-ĞŞ¸Ä£º$sudo gedit /etc/apt/sources.list
-Çå¿Õ²¢Ìæ»»Îª
+ä¿®æ”¹ï¼š$sudo gedit /etc/apt/sources.list
+æ¸…ç©ºå¹¶æ›¿æ¢ä¸º
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-# Ä¬ÈÏ×¢ÊÍÁËÔ´Âë¾µÏñÒÔÌá¸ß apt update ËÙ¶È£¬ÈçÓĞĞèÒª¿É×ÔĞĞÈ¡Ïû×¢ÊÍ
+# é»˜è®¤æ³¨é‡Šäº†æºç é•œåƒä»¥æé«˜ apt update é€Ÿåº¦ï¼Œå¦‚æœ‰éœ€è¦å¯è‡ªè¡Œå–æ¶ˆæ³¨é‡Š
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse
 # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial main restricted universe multiverse
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-updates main restricted universe multiverse
@@ -29,89 +31,89 @@ deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-backports main restricte
 deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse
 # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-security main restricted universe multiverse
 
-# Ô¤·¢²¼Èí¼şÔ´£¬²»½¨ÒéÆôÓÃ
+# é¢„å‘å¸ƒè½¯ä»¶æºï¼Œä¸å»ºè®®å¯ç”¨
 # deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse
 # deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ xenial-proposed main restricted universe multiverse
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 =========================================================
 
-Ö´ĞĞ
+æ‰§è¡Œ
 $sudo apt-get update
 $sudo apt-get upgrade
-#°²×°pip
+#å®‰è£…pip
 sudo  apt-get install python3-pip python3-dev
 pip install --upgrade pip
 	pip install pyhamcrest
 	pip install twisted
 
 ==========================================================
-¸üĞÂpipÔ´
-#ÔÚ ~/.config ÏÂĞÂ½¨pipÎÄ¼ş¼Ğ  
+### æ›´æ–°pipæº (ä¸ºäº†åŠ é€Ÿpipå®‰è£…æ–¹æ³•)
+#åœ¨ ~/.config ä¸‹æ–°å»ºpipæ–‡ä»¶å¤¹  
 	cd ~/.config 
 	mkdir pip
 
 #$cd ~/.config/pip
 #$vim pip.conf 
-  ¿ÉÒÔÓÃtouch pip.conf
+  å¯ä»¥ç”¨touch pip.conf
 	sudo gedit pip.conf
-¼ÓÈëÒÔÏÂÄÚÈİ
+åŠ å…¥ä»¥ä¸‹å†…å®¹
 %%%%%%%%%%%%%%%%%%%%%%
 [global] 
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple 
 %%%%%%%%%%%%%%%%%%%%%%
 
-±£´æÍË³ö
+ä¿å­˜é€€å‡º
 =====================================
-°²×° numpy£¬ÊÇ±àÒë tensorflow ºÍ opencv3 µÄÒÀÀµ
-$sudo pip3 install numpy  ¿ÉÒÔ²»ÓÃsudo£¬Ö±½Ópip°²×°
+### å®‰è£… numpyï¼Œæ˜¯ç¼–è¯‘ tensorflow å’Œ opencv3 çš„ä¾èµ–
+$sudo pip3 install numpy  å¯ä»¥ä¸ç”¨sudoï¼Œç›´æ¥pipå®‰è£…
 =====================================
-°²×°tensorflow £¨¿ÉÒÔÔÚcudnnºó°²×°£¬ÏÈ×°Ò²¿ÉÒÔ£¬Òª×¢Òâ°æ±¾Æ¥Åä£©
+### å®‰è£…tensorflow ï¼ˆå¯ä»¥åœ¨cudnnåå®‰è£…ï¼Œå…ˆè£…ä¹Ÿå¯ä»¥ï¼Œè¦æ³¨æ„ç‰ˆæœ¬åŒ¹é…ï¼‰
 
-pip3 install tensorflow-gpu £¨°²×°×îĞÂ°æ£© »òÏÂÔØºÃ£¬pip3 install Ö¸¶¨tensorflow*.whlÎÄ¼ş»ò¶ÔÓ¦ÍøÖ·
+pip3 install tensorflow-gpu ï¼ˆå®‰è£…æœ€æ–°ç‰ˆï¼‰ æˆ–ä¸‹è½½å¥½ï¼Œpip3 install æŒ‡å®štensorflow*.whlæ–‡ä»¶æˆ–å¯¹åº”ç½‘å€
 
 ====================================================================
- ÔËĞĞtensorflow²âÊÔ³ÌĞòÊ±£¬³öÏÖ */h5py *£ºFutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.  from ._conv import register_converters as _register_converters µÄ´íÎó
-½â¾ö·½·¨£¬Éı¼¶ h5py ÀıÈç£º
+ è¿è¡Œtensorflowæµ‹è¯•ç¨‹åºæ—¶ï¼Œå‡ºç° */h5py *ï¼šFutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.  from ._conv import register_converters as _register_converters çš„é”™è¯¯
+è§£å†³æ–¹æ³•ï¼Œå‡çº§ h5py ä¾‹å¦‚ï¼š
 pip install h5py==2.8.0rc1
 =======================================================================
 
-°²×°NvidiaÇı¶¯£¨Ò²¿ÉÔÚ°²×°CUDA9Í¬Ê±°²×°Çı¶¯£©
-Çı¶¯°æ±¾²éÑ¯ NvidiaÇı¶¯³ÌĞò https://www.nvidia.cn/Download/index.aspx?lang=cn
-Ö´ĞĞÒÔÏÂ²½Öè
-$sudo apt-get purge nvidia* #Ğ¶ÔØËùÓĞÏÔ¿¨Çı¶¯ 
-$sudo add-apt-repository ppa:graphics-drivers/ppa #Personal Package Archives,Ò²¾ÍÊÇ¸öÈËÈí¼ş°ü¼¯£¬Ìí¼ÓÇı¶¯³ÌĞòÏÂÔØÔ´
+### å®‰è£…Nvidiaé©±åŠ¨ï¼ˆä¹Ÿå¯åœ¨å®‰è£…CUDA9åŒæ—¶å®‰è£…é©±åŠ¨ï¼‰
+é©±åŠ¨ç‰ˆæœ¬æŸ¥è¯¢ Nvidiaé©±åŠ¨ç¨‹åº https://www.nvidia.cn/Download/index.aspx?lang=cn
+æ‰§è¡Œä»¥ä¸‹æ­¥éª¤
+$sudo apt-get purge nvidia* #å¸è½½æ‰€æœ‰æ˜¾å¡é©±åŠ¨ 
+$sudo add-apt-repository ppa:graphics-drivers/ppa #Personal Package Archives,ä¹Ÿå°±æ˜¯ä¸ªäººè½¯ä»¶åŒ…é›†ï¼Œæ·»åŠ é©±åŠ¨ç¨‹åºä¸‹è½½æº
 $sudo apt-get update && sudo apt-get install nvidia-384 nvidia-settings 
-#nvidia¹ÙÍøÇı¶¯  https://www.nvidia.cn/Download/index.aspx?lang=cn
-          titan Xp ¿ÉÄÜÊÇ390 399.24  387   390   410(ÖØÆô³É¹¦)  
-Èç¹û×°´íÁË£ºsudo apt-get remove --purge nvidia* 
+#nvidiaå®˜ç½‘é©±åŠ¨  https://www.nvidia.cn/Download/index.aspx?lang=cn
+          titan Xp å¯èƒ½æ˜¯390 399.24  387   390   410(é‡å¯æˆåŠŸ)  
+å¦‚æœè£…é”™äº†ï¼šsudo apt-get remove --purge nvidia* 
             sudo apt-get install autoremove --purge nvidia*
 
-!!!!£¡ÖØÆô
-$ nvidia-smi #ÊäÈëÃüÁî£¬Êä³öÏÔ¿¨ĞÅÏ¢¼°Çı¶¯³ÌĞò°æ±¾
+!!!!ï¼é‡å¯
+$ nvidia-smi #è¾“å…¥å‘½ä»¤ï¼Œè¾“å‡ºæ˜¾å¡ä¿¡æ¯åŠé©±åŠ¨ç¨‹åºç‰ˆæœ¬
 =====================================================
-°²×°CUDA9
-CUDA Toolkits download  https://developer.nvidia.com/cuda-toolkit-archive  li*2@126.com»ò163  SHUt907a
-Ñ¡Ôñ CUDA9.0 ubuntu16.04 deb(local)
-ÏÂÔØÍê³Éºó
-runÎÄ¼şÖ´ĞĞ(ÍÆ¼ö)
+### å®‰è£…CUDA9 (.runå®‰è£…ï¼Œå®˜ç½‘æœ‰å¯¹åº”çš„å¸è½½)
+CUDA Toolkits download  https://developer.nvidia.com/cuda-toolkit-archive  li*2@126.comæˆ–163  SHUt907a
+é€‰æ‹© CUDA9.0 ubuntu16.04 deb(local)
+ä¸‹è½½å®Œæˆå
+runæ–‡ä»¶æ‰§è¡Œ(æ¨è)
 	
     Run `sudo sh cuda_9.0.176_384.81_linux.run`
-    ²»Òª×°OpenGL(ÍøÉÏËµµÄ£¬Ã»ÓĞÊÔ¹ı£©
+    ä¸è¦è£…OpenGL(ç½‘ä¸Šè¯´çš„ï¼Œæ²¡æœ‰è¯•è¿‡ï¼‰
 
-debÎÄ¼şÖ´ĞĞ
+debæ–‡ä»¶æ‰§è¡Œ
 	$sudo dpkg -i cuda-repo-ubuntu1604-9-0-local_9.0.176-1_amd64.deb
 	$sudo apt-key add /var/cuda-repo-<version>/7fa2af80.pub
  	#sudo apt-key add /var/cuda-repo-9-0-local/7fa2af80.pub
- 	#°²×°cuda10: sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub (Ä¿Ç°tensorflow»¹²»Ö§³Öcuda10,²»Ö§³Öcudnn7.3)
+ 	#å®‰è£…cuda10: sudo apt-key add /var/cuda-repo-10-0-local-10.0.130-410.48/7fa2af80.pub (ç›®å‰tensorflowè¿˜ä¸æ”¯æŒcuda10,ä¸æ”¯æŒcudnn7.3)
 	$sudo apt-get update
 	$sudo apt-get install cuda
 
-²âÊÔCUDA9.0  Õâ¸ö»¹Òª×°¶«Î÷£¬
+æµ‹è¯•CUDA9.0  è¿™ä¸ªè¿˜è¦è£…ä¸œè¥¿ï¼Œ
 $sudo apt install nvidia-cuda-toolkit
-¿ÉÒÔÑ¡Ôñ²»ÔËĞĞnvcc -V
-$nvcc -V #Êä³öCUDA°æ±¾ĞÅÏ¢
+å¯ä»¥é€‰æ‹©ä¸è¿è¡Œnvcc -V
+$nvcc -V #è¾“å‡ºCUDAç‰ˆæœ¬ä¿¡æ¯
 
-²âÊÔSamples
+æµ‹è¯•Samples
 $mkdir test
 $cd test
 $cp -r /usr/local/cuda-9.0/samples/ . 
@@ -120,22 +122,22 @@ $make -j16
 $cd ./1_Utilities/bandwidthTest
 $./bandwidthTest 
 
-²é¿´×îºó½á¹û£¬Èç¹ûÊÇResult = PASS£¬ÄÇ¾Íok¡£
-½Ó×Åcdµ½¸ùÄ¿Â¼¡£±à¼­.bashrcÎÄ¼ş
+æŸ¥çœ‹æœ€åç»“æœï¼Œå¦‚æœæ˜¯Result = PASSï¼Œé‚£å°±okã€‚
+æ¥ç€cdåˆ°æ ¹ç›®å½•ã€‚ç¼–è¾‘.bashrcæ–‡ä»¶
 $sudo gedit .bashrc
-ÔÚ×îºó¼ÓÉÏ
+åœ¨æœ€ååŠ ä¸Š
 %%%%%%%%%%%%%%%%%%%
 #cuda9.0
 export PATH=/usr/local/cuda/bin${PATH:+:${PATH}} 
 export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}} 
 export CUDA_HOME=/usr/local/cuda
 %%%%%%%%%%%%%%%%%%%%%
-±£´æÍË³ö¡£½Ó×ÅÔÚÃüÁî´°¿ÚÊäÈë
+ä¿å­˜é€€å‡ºã€‚æ¥ç€åœ¨å‘½ä»¤çª—å£è¾“å…¥
 $source .bashrc
-ÈÃÎÄ¼şÉúĞ§¡£
+è®©æ–‡ä»¶ç”Ÿæ•ˆã€‚
 
-£¨ÇëÎğÑ¡Ôñ9.1£¬·ñÔò±àÒëTensorflow»á³öÏÖÎÊÌâ£© 
-Èç¹ûÎó×°ÁËÆäËû°æ±¾¿ÉÍ¨¹ıÒÔÏÂ·½·¨Ğ¶ÔØ²¢ÖØ×°
+ï¼ˆè¯·å‹¿é€‰æ‹©9.1ï¼Œå¦åˆ™ç¼–è¯‘Tensorflowä¼šå‡ºç°é—®é¢˜ï¼‰ 
+å¦‚æœè¯¯è£…äº†å…¶ä»–ç‰ˆæœ¬å¯é€šè¿‡ä»¥ä¸‹æ–¹æ³•å¸è½½å¹¶é‡è£…
 $sudo apt-get --purge remove cuda
 $sudo apt autoremove
 $sudo apt-get clean
@@ -144,36 +146,36 @@ $sudo apt-get update
 $sudo apt-get install cuda-9-0
 
 ==================================
-°²×°cudnn7
-ÏÂÔØµØÖ· https://developer.nvidia.com/cudnn
-×¢Òâ×Ô¼ºµÄÂ·¾¶¼°cudnn°æ±¾
+### å®‰è£…cudnn7
+ä¸‹è½½åœ°å€ https://developer.nvidia.com/cudnn
+æ³¨æ„è‡ªå·±çš„è·¯å¾„åŠcudnnç‰ˆæœ¬
 tar -zxvf cudnn-9.0-linux-x64-v7.tgz 
 sudo cp cuda/include/cudnn.h /usr/local/cuda/include/ 
 sudo cp -a cuda/lib64/libcudnn* /usr/local/cuda/lib64/ 
 sudo chmod a+r /usr/local/cuda/include/cudnn.h 
 sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
 
-×¢ÒâÉÏÃæµÚ¶şÌõÖ¸Áî£¬ÕâÀï¶à¼ÓÁËÒ»¸ö-a£¬ÔÚ¹Ù·½¸øµÄ·½°¸ÀïÃæÃ»ÓĞ£¬ÎÒ½¨ÒéÄãÕâÑù×ö£¬·ñÔò»á³öÏÖÁ¬½Ó³ö´íµÄÎÊÌâ¡£Èç¹ûÄãÍü¼ÇÁË£¬¿ÉÒÔ²Î¿¼ÏÂÃæ×ö·¨
-#ÈíÁ´½ÓÖÁ¹ØÖØÒª
+æ³¨æ„ä¸Šé¢ç¬¬äºŒæ¡æŒ‡ä»¤ï¼Œè¿™é‡Œå¤šåŠ äº†ä¸€ä¸ª-aï¼Œåœ¨å®˜æ–¹ç»™çš„æ–¹æ¡ˆé‡Œé¢æ²¡æœ‰ï¼Œæˆ‘å»ºè®®ä½ è¿™æ ·åšï¼Œå¦åˆ™ä¼šå‡ºç°è¿æ¥å‡ºé”™çš„é—®é¢˜ã€‚å¦‚æœä½ å¿˜è®°äº†ï¼Œå¯ä»¥å‚è€ƒä¸‹é¢åšæ³•
+#è½¯é“¾æ¥è‡³å…³é‡è¦
 cd /usr/local/cuda/lib64/
 sudo rm -rf libcudnn.so libcudnn.so.7.0  
 sudo ln -s libcudnn.so.7.0.5 libcudnn.so.7.0  
 sudo ln -s libcudnn.so.7.0 libcudnn.so 
 =====================================================
-°²×°Bazel  Ã»ÓĞ×°¹ı£¬¿ÉÒÔÏÈ²»×°
-¹Ù·½ÎÄµµ  https://docs.bazel.build/versions/master/install-ubuntu.html
+å®‰è£…Bazel  æ²¡æœ‰è£…è¿‡ï¼Œå¯ä»¥å…ˆä¸è£…
+å®˜æ–¹æ–‡æ¡£  https://docs.bazel.build/versions/master/install-ubuntu.html
 ==========================================================
-°²×°opencv3.3  Ã»ÓĞ×°¹ı£¬¿ÉÒÔÏÈ²»×°
-CUDA9.0Ö»Ö§³Öopencv3.3ÒÔÉÏ°æ±¾
-1¡¢ÏÂÔØopencvÔ´Âë£ºhttps://github.com/opencv/opencv 
-2¡¢ÏÂÔØ opencv_contrib Ô´³ÌĞò https://github.com/opencv/opencv_contrib
-ÏÂÃæ¿ªÊ¼°²×° 
-1¡¢ÏÈ½«opencvºÍopencv_contrib½âÑ¹µ½Ä³¸öÄ¿Â¼ÏÂ£¬ÎÒµÄÊÇÔÚ /usr/opencv
-2¡¢ÒÀ´ÎÖ´ĞĞÏÂÃæµÄÃüÁî
+å®‰è£…opencv3.3  æ²¡æœ‰è£…è¿‡ï¼Œå¯ä»¥å…ˆä¸è£…
+CUDA9.0åªæ”¯æŒopencv3.3ä»¥ä¸Šç‰ˆæœ¬
+1ã€ä¸‹è½½opencvæºç ï¼šhttps://github.com/opencv/opencv 
+2ã€ä¸‹è½½ opencv_contrib æºç¨‹åº https://github.com/opencv/opencv_contrib
+ä¸‹é¢å¼€å§‹å®‰è£… 
+1ã€å…ˆå°†opencvå’Œopencv_contribè§£å‹åˆ°æŸä¸ªç›®å½•ä¸‹ï¼Œæˆ‘çš„æ˜¯åœ¨ /usr/opencv
+2ã€ä¾æ¬¡æ‰§è¡Œä¸‹é¢çš„å‘½ä»¤
 $sudo apt-get update
 $sudo apt-get upgrade
 
-#opencv3.3µÄÒÀÀµ
+#opencv3.3çš„ä¾èµ–
 $sudo apt-get install build-essential cmake pkg-config
 $sudo apt-get install libjpeg8-dev libtiff5-dev libjasper-dev libpng12-dev
 
@@ -187,64 +189,65 @@ $sudo apt-get install libatlas-base-dev gfortran
 
 $sudo apt-get install python3.5-dev python-numpy libtbb2 libtbb-dev  libdc1394-22-dev
 
-½øÈëopencvÔ´´úÄ¿Â¼£¨Èç£º/usr/opencv/opencv-master£©,´´½¨buildÄ¿Â¼
+è¿›å…¥opencvæºä»£ç›®å½•ï¼ˆå¦‚ï¼š/usr/opencv/opencv-masterï¼‰,åˆ›å»ºbuildç›®å½•
 mkdir build
 cd build
 
-Ö´ĞĞ±àÒëÃüÁî
+æ‰§è¡Œç¼–è¯‘å‘½ä»¤
 sudo cmake -D CMAKE_BUILD_TYPE=RELEASE -D CMAKE_INSTALL_PREFIX=/usr/local -D PYTHON3_EXECUTABLE=/usr/bin/python3 -D PYTHON_INCLUDE_DIR=/usr/include/python3.5 -D PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.5m.so -D PYTHON3_NUMPY_INCLUDE_DIRS=/usr/local/lib/python3.5/dist-packages/numpy/core/include -D INSTALL_PYTHON_EXAMPLES=ON -D INSTALL_C_EXAMPLES=OFF -D OPENCV_EXTRA_MODULES_PATH=/usr/opencv/opencv_contrib-master/modules -D PYTHON_EXECUTABLE=/usr/lib/python3 -D BUILD_EXAMPLES=ON ..
 
-×¢Òâ£ºÔÚÖ´ĞĞÉÏÃæÃüÁîÊ±£¬Õı³£À´Ëµ»áµ½ippicv´¦Ê±Ö´ĞĞ²»ÏÂÈ¥£¬±àÒë»áÍË³ö£¬ÒòÎªĞèÒªÒÀÀµ ippicv µÄ°ü±àÒëÊ±ÏÂÔØºÜÂı£¬³öÏÖÍøÂçÒì³£ÏÂÔØ²»ÏÂÀ´¡£½â¾ö·½·¨ÊÇ½¨ÒéÏÈÊÖ¶¯ÏÂÔØ 
-ippicv_2017u2_lnx_intel64_20170828.tgz (githubÏÂÔØÁ´½Ó) 
-Í¬Ê±ÓÃ¸ÃÎÄ¼ş¸²¸Ç /usr/opencv/opencv-master/ .cache(×¢ÒâÓĞ¡°.¡±)Ä¿Â¼ÏÂµÄ ippicvÎÄ¼ş£¨ÎÄ¼şÃûÕâÀï×¢ÒâÊÇÒ»¸öºÜ³¤µÄÍ¨¹ıguidÉú³ÉµÄÃû×Ö£¬²»ÄÜ¸Ä±ä£©¡£
-Èç¹û±àÒëÍ¨¹ıµ±ÎÒÃ»Ëµ :£©
+æ³¨æ„ï¼šåœ¨æ‰§è¡Œä¸Šé¢å‘½ä»¤æ—¶ï¼Œæ­£å¸¸æ¥è¯´ä¼šåˆ°ippicvå¤„æ—¶æ‰§è¡Œä¸ä¸‹å»ï¼Œç¼–è¯‘ä¼šé€€å‡ºï¼Œå› ä¸ºéœ€è¦ä¾èµ– ippicv çš„åŒ…ç¼–è¯‘æ—¶ä¸‹è½½å¾ˆæ…¢ï¼Œå‡ºç°ç½‘ç»œå¼‚å¸¸ä¸‹è½½ä¸ä¸‹æ¥ã€‚è§£å†³æ–¹æ³•æ˜¯å»ºè®®å…ˆæ‰‹åŠ¨ä¸‹è½½ 
+ippicv_2017u2_lnx_intel64_20170828.tgz (githubä¸‹è½½é“¾æ¥) 
+åŒæ—¶ç”¨è¯¥æ–‡ä»¶è¦†ç›– /usr/opencv/opencv-master/ .cache(æ³¨æ„æœ‰â€œ.â€)ç›®å½•ä¸‹çš„ ippicvæ–‡ä»¶ï¼ˆæ–‡ä»¶åè¿™é‡Œæ³¨æ„æ˜¯ä¸€ä¸ªå¾ˆé•¿çš„é€šè¿‡guidç”Ÿæˆçš„åå­—ï¼Œä¸èƒ½æ”¹å˜ï¼‰ã€‚
+å¦‚æœç¼–è¯‘é€šè¿‡å½“æˆ‘æ²¡è¯´ :ï¼‰
 $sudo make -j16
 $sudo make clean
 $sudo make install
 
 $sudo ldconfig
 
-Èç¹ûÃ»ÓĞÎÊÌâµÄ»°¾Í´ó¹¦¸æ³ÉÁË¡£
+å¦‚æœæ²¡æœ‰é—®é¢˜çš„è¯å°±å¤§åŠŸå‘Šæˆäº†ã€‚
 =============================================================================
-Keras¿ò¼Ü´î½¨
-Ïà¹Ø¿ª·¢°ü°²×°
-ÔÚÖÕ¶ËÖĞÊäÈë:
+Kerasæ¡†æ¶æ­å»º
+ç›¸å…³å¼€å‘åŒ…å®‰è£…
+åœ¨ç»ˆç«¯ä¸­è¾“å…¥:
 >>> sudo pip install -U --pre pip setuptools wheel
 >>> sudo pip install -U --pre numpy scipy matplotlib scikit-learn scikit-image
 >>> sudo pip install -U --pre tensorflow-gpu
-# >>> sudo pip install -U --pre tensorflow ## CPU°æ±¾
+# >>> sudo pip install -U --pre tensorflow ## CPUç‰ˆæœ¬
 >>> sudo pip install -U --pre keras
-°²×°Íê±Ïºó£¬ÊäÈëpython£¬È»ºóÊäÈë£º
+å®‰è£…å®Œæ¯•åï¼Œè¾“å…¥pythonï¼Œç„¶åè¾“å…¥ï¼š
 >>> import tensorflow
 >>> import keras
-ÎŞ´íÊä³ö¼´¿É
-KerasÖĞmnistÊı¾İ¼¯²âÊÔ
-ÏÂÔØKeras¿ª·¢°ü
+æ— é”™è¾“å‡ºå³å¯
+Kerasä¸­mnistæ•°æ®é›†æµ‹è¯•
+ä¸‹è½½Keraså¼€å‘åŒ…
 >>> git clone https://github.com/fchollet/keras.git
 >>> cd keras/examples/
 >>> python mnist_mlp.py
-³ÌĞòÎŞ´í½øĞĞ£¬ÖÁ´Ë£¬keras°²×°Íê³É¡£
+ç¨‹åºæ— é”™è¿›è¡Œï¼Œè‡³æ­¤ï¼Œkeraså®‰è£…å®Œæˆã€‚
 
 ==============================================================================
+### è™šæ‹Ÿæœºç”¨çš„è™šæ‹Ÿæ˜¾å¡ï¼Œä¸èƒ½æ”¯æŒcuda
 https://blog.csdn.net/javahaoshuang3394/article/details/76425009
-1¡¢°ÑUbuntu16.04×°ÔÚÁËĞéÄâ»úÀïÁË£¬ºóÃæÊÔÁËN´Î°²×°¶¼Ê§°Ü£¬ÏëÏëÓ¦¸ÃÊÇĞéÄâ»úÓ¦¸ÃÓÃµÄÊÇĞéÄâµÄÏÔ¿¨Çı¶¯
-2¡¢Õû¸ö»úÆ÷Ö»°²×°Ubuntu16.04ÏµÍ³Ö®ºó£¬ĞèÒªÏÈ½«UbuntuÄ¬ÈÏ°²×°²¢Ê¹ÓÃµÄnouveau¼¯³ÉÏÔ¿¨Çı¶¯½ûÓÃ¡£
-£¨1£©¸Ä±äblacklist.confÎÄ¼şµÄÊôĞÔ£¬Ê¹Ö®¿É±à¼­
+1ã€æŠŠUbuntu16.04è£…åœ¨äº†è™šæ‹Ÿæœºé‡Œäº†ï¼Œåé¢è¯•äº†Næ¬¡å®‰è£…éƒ½å¤±è´¥ï¼Œæƒ³æƒ³åº”è¯¥æ˜¯è™šæ‹Ÿæœºåº”è¯¥ç”¨çš„æ˜¯è™šæ‹Ÿçš„æ˜¾å¡é©±åŠ¨
+2ã€æ•´ä¸ªæœºå™¨åªå®‰è£…Ubuntu16.04ç³»ç»Ÿä¹‹åï¼Œéœ€è¦å…ˆå°†Ubuntué»˜è®¤å®‰è£…å¹¶ä½¿ç”¨çš„nouveaué›†æˆæ˜¾å¡é©±åŠ¨ç¦ç”¨ã€‚
+ï¼ˆ1ï¼‰æ”¹å˜blacklist.confæ–‡ä»¶çš„å±æ€§ï¼Œä½¿ä¹‹å¯ç¼–è¾‘
 sudo chmod 666 /etc/modprobe.d/blacklist.conf
-£¨2£©ÓÃgeditÈí¼ş´ò¿ª£¬ÓÃviÒ²¿ÉÒÔ
+ï¼ˆ2ï¼‰ç”¨geditè½¯ä»¶æ‰“å¼€ï¼Œç”¨viä¹Ÿå¯ä»¥
 sudo gedit /etc/modprobe.d/blacklist.conf
-£¨3£©ÔÚÎÄ¼şÄ©Î²¼ÓÈëÒÔÏÂ¼¸¾ä»°
+ï¼ˆ3ï¼‰åœ¨æ–‡ä»¶æœ«å°¾åŠ å…¥ä»¥ä¸‹å‡ å¥è¯
 blacklist vga16fb
 blacklist nouveau
 blacklist rivafb
 blacklist rivatv
 blacklist nvidiafb
-£¨4£©±£´æ
-£¨5£©°´ÏÂctrl+alt+F1½øÈë¿ØÖÆÌ¨Ä£Ê½
+ï¼ˆ4ï¼‰ä¿å­˜
+ï¼ˆ5ï¼‰æŒ‰ä¸‹ctrl+alt+F1è¿›å…¥æ§åˆ¶å°æ¨¡å¼
 sudo service lightdm stop
-£¨6£©ÊäÈëÒÔÏÂÃüÁî£¬Ê¹µÃ£¨1£©µ½£¨4£©²½µÄÅäÖÃÉúĞ§£¬ÕâÒ»²½ºÜ¹Ø¼ü£¬·ñÔò°²×°N¿¨Çı¶¯Ê±»áÒ»Ö±ÌáÊ¾Ä¿Ç°ÔËĞĞµÄÊÇnouveauÇı¶¯
+ï¼ˆ6ï¼‰è¾“å…¥ä»¥ä¸‹å‘½ä»¤ï¼Œä½¿å¾—ï¼ˆ1ï¼‰åˆ°ï¼ˆ4ï¼‰æ­¥çš„é…ç½®ç”Ÿæ•ˆï¼Œè¿™ä¸€æ­¥å¾ˆå…³é”®ï¼Œå¦åˆ™å®‰è£…Nå¡é©±åŠ¨æ—¶ä¼šä¸€ç›´æç¤ºç›®å‰è¿è¡Œçš„æ˜¯nouveaué©±åŠ¨
 sudo update-initramfs -u
-£¨7£©ÖØÆô£¬°´ÏÂctrl+alt+F1½øÈë¿ØÖÆÌ¨Ä£Ê½
-£¨8£©°²×°N¿¨Çı¶¯£¨²»ÖªÎªºÎÎÒÓÃsh²»ĞĞ£¬Ö»ÄÜÓÃbash£©
+ï¼ˆ7ï¼‰é‡å¯ï¼ŒæŒ‰ä¸‹ctrl+alt+F1è¿›å…¥æ§åˆ¶å°æ¨¡å¼
+ï¼ˆ8ï¼‰å®‰è£…Nå¡é©±åŠ¨ï¼ˆä¸çŸ¥ä¸ºä½•æˆ‘ç”¨shä¸è¡Œï¼Œåªèƒ½ç”¨bashï¼‰
 sudo bash NVIDIA-Linux-x86_64-384.47.run
-£¨9£©sudo service lightdm start½øÈëÍ¼ĞÎ½çÃæ£¬×ÖÌå»Ö¸´Õı³£´ú±íN¿¨Çı¶¯°²×°³É¹¦
+ï¼ˆ9ï¼‰sudo service lightdm startè¿›å…¥å›¾å½¢ç•Œé¢ï¼Œå­—ä½“æ¢å¤æ­£å¸¸ä»£è¡¨Nå¡é©±åŠ¨å®‰è£…æˆåŠŸ
