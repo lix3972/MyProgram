@@ -6,4 +6,5 @@
 5、glasses_demo.m #STGAN中glasses初始位置  
 6、train_My.sh    #STGAN原.sh文件出错，修改后可运行  
 7、tryOne.py      #try tf.batch_to_space  
-8、g_sin.py       #使用pytorch的GAN程序，生成一个周期(0,2pi)的正弦数据  
+8、g_sin.py       #使用pytorch的GAN程序，生成一个周期(0,2pi)的正弦数据。使用nn.Sequential()  
+9、g_sin2.py      #功能同g_sin.py。使用定义nn.Module子类的方法  
