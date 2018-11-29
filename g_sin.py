@@ -10,10 +10,10 @@ N_IDEAS = 20             # think of this as number of ideas for generating an ar
 ART_COMPONENTS = 50     # it could be total point G can draw in the canvas
 PAINT_POINTS = np.vstack([np.linspace(0, 2*3.14, ART_COMPONENTS) for _ in range(BATCH_SIZE)])
 
-def artist_works():     # painting from the famous artist (real target)
-    a = np.random.uniform(1, 2, size=BATCH_SIZE)[:, np.newaxis]
-    #w = np.random.uniform(0, 50, size=BATCH_SIZE)[:, np.newaxis]
-    fy=np.random.uniform(0, 2*3.14, size=BATCH_SIZE)[:, np.newaxis]
+def artist_works():                                           # painting from the famous artist (real target)
+    a = np.random.uniform(1, 2, size=[BATCH_SIZE,1])          #[:, np.newaxis]
+    #w = np.random.uniform(0, 50, size=BATCH_SIZE)            #[:, np.newaxis]
+    fy=np.random.uniform(0, 2*3.14, size=[BATCH_SIZE,1])      #[:, np.newaxis]
     paintings = a * np.sin(PAINT_POINTS+fy)
     paintings = torch.from_numpy(paintings).float()
     return paintings
