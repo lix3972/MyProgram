@@ -6,6 +6,7 @@ forward()  #如果nn.Sequential定义成类，forward只返回nn.Sequential等�
 #定义语句相对方法一复杂，但中间结果可以输出。  
 #与nn.Sequential区别：每一行后面不能用逗号，可以输出中间过程。需要在forward()中将每层再调用一次，并返回给一个变量。  
 # 方法一（例子）：  
+
 class Gen(nn.Module):    
     def __init__(self):  
         super(Gen, self).__init__()  
@@ -35,7 +36,9 @@ class Gen(nn.Module):
         )  
     def forward(self,input):  
         return self.main(input)  
+
 # 方法二（例子）：          
+   
    class Gen(nn.Module):  
     def __init__(self):  
         super(Gen, self).__init__()  
