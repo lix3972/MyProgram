@@ -72,14 +72,14 @@ def get_gan_loss(dis_real, dis_fake, criterion, cuda):
 
     return dis_loss, gen_loss
 
-testPathA='dataset/test_im'
-testPathB='dataset/test_npy'
+# testPathA='dataset/test_im'
+# testPathB='dataset/test_npy'
 
 filePathA = 'dataset/train_im'
 filePathB = 'dataset/train_npy'
 iters=0
 
-epochNum=12000
+epochNum=200000
 for epoch in range(epochNum):
 
     # shuffleA, shuffleB = shuffle_data(classA, classB)
@@ -166,3 +166,53 @@ for epoch in range(epochNum):
         torch.save(D_A.state_dict(), 'pklFiles/D_A{}.pkl'.format(epoch))
         torch.save(D_B.state_dict(), 'pklFiles/D_B{}.pkl'.format(epoch))
 
+    # show the result
+    if epoch % 1000 == 1000-1:
+        A1=read_image('dataset/test_im/IMG_1.jpg')
+        imageA = cropDataTo3_3(A1)
+        imageA = torch.Tensor(imageA)
+
+        B1 = read_npy('dataset/test_npy/IMG_1.npy')
+        npyB = cropDataTo3_3(B1)
+        npyB = torch.Tensor(npyB)
+        AB1 = []
+        BA1 = []
+        ABA1 = []
+        BAB1 = []
+        for i in range(9):
+            A = imageA[i].unsqueeze(0).cuda()
+            B = npyB[i].unsqueeze(0).cuda()
+            G_A.zero_grad()
+            G_B.zero_grad()
+
+            AB = G_B(A)
+            BA = G_A(B)
+
+            ABA = G_A(AB)
+            BAB = G_B(BA)
+
+            tmp = AB.squeeze(0).cpu().data.numpy()
+            AB1.append(tmp)
+            tmp = BA.squeeze(0).cpu().data.numpy()
+            BA1.append(tmp)
+            ABA1.append(ABA.squeeze(0).cpu().data.numpy())
+            BAB1.append(BAB.squeeze(0).cpu().data.numpy())
+
+        AB1 = combo3_3to1(AB1)
+        BA1 = combo3_3to1(BA1)
+        ABA1 = combo3_3to1(ABA1)
+        BAB1 = combo3_3to1(BAB1)
+
+        # A_val = A1.transpose(1, 2, 0) * 255.
+        # B_val = B1.transpose(1, 2, 0)
+        BA_val = BA1.transpose(1, 2, 0) * 255.
+        AB_val = AB1.transpose(1, 2, 0)
+        ABA_val = ABA1.transpose(1, 2, 0) * 255.
+        BAB_val = BAB1.transpose(1, 2, 0)
+
+        # scipy.misc.imsave('trainResults/' + str(int(epoch)) + '_A.jpg', A_val.astype(np.uint8)[:, :, :])  # [:, :, ::-1])
+        # np.save('trainResults/' + str(int(epoch)) + '_B.npy', B_val.astype(np.float64)[:, :, 0])
+        scipy.misc.imsave('trainResults/' + str(int(epoch)) + '_BA.jpg', BA_val.astype(np.uint8)[:, :, :])
+        np.save('trainResults/' + str(int(epoch)) + '_AB.npy', AB_val.astype(np.float64)[:, :, 0])
+        scipy.misc.imsave('trainResults/' + str(int(epoch)) + '_ABA.jpg', ABA_val.astype(np.uint8)[:, :, :])
+        np.save('trainResults/' + str(int(epoch)) + '_BAB.npy', BAB_val.astype(np.float64)[:, :, 0])
