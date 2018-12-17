@@ -3,6 +3,7 @@ import pandas as pd
 #import cv2
 import numpy as np
 import tensorflow as tf
+import torch
 
 import matplotlib.pyplot as plt
 #from scipy.misc import imresize
@@ -28,7 +29,7 @@ def get_npy_filenames(filePath):
     fileNames = file_df['path'].values
     return fileNames
 
-def read_images( fileNames, image_size=64):
+def read_images( fileNames, image_size=720):
     images = []
     with tf.Session() as sess:
         for fn in fileNames:
@@ -47,25 +48,39 @@ def read_images( fileNames, image_size=64):
         images = np.stack( images )
     return images
 
-def read_npy(fileNames, image_size=64):
-    images=[]
-    with tf.Session() as sess:
-        for fn in fileNames:
-            # im_full_path = filepath + "/" + fn
-            dm = np.load(fn) #ndarray 720*720
-            dm = np.tile(dm, (3, 1, 1))
-            dm = dm.transpose(1, 2, 0)
-            im = tf.image.resize_images(dm, [image_size, image_size])
-            image = im.eval()
+def read_image( fileName ):
 
-            if im is None:
-                continue
-            image = image.astype(np.float32) / 255.
-            image = image.transpose(2,0,1)
-            images.append( image )
+    with tf.Session() as sess:
+        image_raw = tf.gfile.FastGFile(fileName, 'rb').read()
+        image = tf.image.decode_jpeg(image_raw)
+        # im = tf.image.resize_images(image, [image_size, image_size], method=0)
+        image = image.eval()  # ndarray #ndarray 720*720*3
+        image = image.astype(np.float32) / 255.
+        image = image.transpose(2, 0, 1)
+    return image
+
+def read_npys(fileNames, image_size=720):
+    dms=[]
+    # with tf.Session() as sess:
+    for fn in fileNames:
+        # im_full_path = filepath + "/" + fn
+        dm = np.load(fn) #ndarray 720*720
+        dm = np.tile(dm, (3, 1, 1))
+        dm = dm.transpose(1, 2, 0)
+        dm = tf.image.resize_images(dm, [image_size, image_size])
+        dm = dm.eval()
+        dm = dm.astype(np.float32)   # 255.
+        dm = dm.transpose(2,0,1)
+        dms.append( dm )
     if image_size > 1:
-        images = np.stack( images )
-    return images
+        dms = np.stack( dms )
+    return dms
+
+def read_npy(fileName):
+    dm = np.load(fileName) #ndarray 720*720
+    dm = np.tile(dm, (3, 1, 1))
+    dm = dm.astype(np.float32)
+    return dm
 
 def shuffle_data(da, db):
     a_idx = np.arange(len(da))
@@ -93,3 +108,36 @@ def shuffle_data(da, db):
 # print(im.shape)
 # plt.imshow(im)
 # plt.show()
+
+def cropDataTo3_3(im,image_size=720):
+    w=int(image_size / 3)
+    h = int(image_size / 3)
+
+    im1 = im[:, 0:w, 0:h]
+    im2 = im[:, w:2*w, 0:h]
+    im3 = im[:, 2*w:3*w, 0:h]
+    im4 = im[:, 0:w, h:2*h]
+    im5 = im[:, w:2*w, h:2*h]
+    im6 = im[:, 2*w:3*w, h:2*h]
+    im7 = im[:, 0:w, 2*h:3*h]
+    im8 = im[:, w:2*w, 2*h:3*h]
+    im9 = im[:, 2*w:3*w, 2*h:3*h]
+    # fullim = torch.cat([im1, im2, im3, im4,im5,im6,im7,im8,im9],0)
+    fullim = np.stack([im1, im2, im3, im4, im5, im6, im7, im8, im9], 0)
+    return fullim
+
+def combo3_3to1(crop,crop_size=240):
+    # crop_val=crop.squeeze(0).cpu().data.numpy()
+    crop_val = crop
+    w=h=crop_size
+    im=np.zeros([3,w*3,h*3])
+    im[:, :w, :h]=crop_val[0]
+    im[:, w:2 * w, :h]=crop_val[1]
+    im[:, 2 * w:3 * w, :h]=crop_val[2]
+    im[:, :w, h:2 * h]=crop_val[3]
+    im[:, w:2 * w, h:2 * h]=crop_val[4]
+    im[:, 2 * w:3 * w, h:2 * h]=crop_val[5]
+    im[:, :w, 2 * h:3 * h]=crop_val[6]
+    im[:, w:2 * w, 2 * h:3 * h]=crop_val[7]
+    im[:, 2 * w:3 * w, 2 * h:3 * h]=crop_val[8]
+    return im
