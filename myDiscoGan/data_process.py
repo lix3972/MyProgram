@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import tensorflow as tf
 import torch
-
+from skimage import io,data
 import matplotlib.pyplot as plt
 #from scipy.misc import imresize
 #import scipy.io
@@ -50,13 +50,16 @@ def read_images( fileNames, image_size=720):
 
 def read_image( fileName ):
 
-    with tf.Session() as sess:
-        image_raw = tf.gfile.FastGFile(fileName, 'rb').read()
-        image = tf.image.decode_jpeg(image_raw)
-        # im = tf.image.resize_images(image, [image_size, image_size], method=0)
-        image = image.eval()  # ndarray #ndarray 720*720*3
-        image = image.astype(np.float32) / 255.
-        image = image.transpose(2, 0, 1)
+    # with tf.Session() as sess:
+    #     image_raw = tf.gfile.FastGFile(fileName, 'rb').read()
+    #     image = tf.image.decode_jpeg(image_raw)
+    #     # im = tf.image.resize_images(image, [image_size, image_size], method=0)
+    #     image = image.eval()  # ndarray #ndarray 720*720*3
+    #     image = image.astype(np.float32) / 255.
+    #     image = image.transpose(2, 0, 1)
+    image=io.imread(fileName)
+    image=image.astype(np.float32) / 255.
+    image=image.transpose(2,0,1)
     return image
 
 def read_npys(fileNames, image_size=720):
