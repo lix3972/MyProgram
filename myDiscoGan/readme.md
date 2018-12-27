@@ -1,6 +1,7 @@
 # 经验教训
 1、慎用连等，连等的几个变量即使以后分开赋值，也会被赋予相同的值  
 2、慎用tensorflow读取图片，会大大的影响速度。用skimage  
+3、保存模型 torch.save(model, PATH);载入模型 model = torch.load(PATH)，然后用model.train() 载入成功，用model.eval()载入失败。    
 # 定义网络-方法一：
 #定义语句简单，但中间结果不能输出。  
 nn.Sequential(   ) #每一行最后都必须有逗号。最后一行可有可无。中间过程不能输出。  
