@@ -59,7 +59,6 @@ class Gen(nn.Module):
         Dout = torch.sigmoid(convT8)
         return Dout
 
-
 class Disc(nn.Module):
     def __init__(self):
         super(Disc, self).__init__()
@@ -79,7 +78,7 @@ class Disc(nn.Module):
         self.relu4 = nn.LeakyReLU(0.2, inplace=True)
 
         # self.conv5 = nn.Conv2d(64 * 8, 1, 4, 1, 0, bias=False)
-        self.conv5 = nn.Conv2d(64 * 8, 1, 4, 1, 0, bias=False)
+        self.conv5 = nn.Conv2d(64 * 8, 1, 15, 1, 0, bias=False)
     def forward(self, input):
         conv1 = self.conv1( input )
         relu1 = self.relu1( conv1 )
@@ -99,4 +98,3 @@ class Disc(nn.Module):
         conv5 = self.conv5( relu4 )
         Dout = torch.sigmoid( conv5 )
         return Dout, [relu2, relu3, relu4]
-
