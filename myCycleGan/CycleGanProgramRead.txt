@@ -1,0 +1,48 @@
+#!./scripts/train_cyclegan.sh
+python train.py --dataroot ./datasets/maps --name maps_cyclegan --model cycle_gan
+
+--phase', type=str, default='train'
+--resize_or_crop', type=str, default='resize_and_crop'
+--loadSize', type=int, default=286
+--fineSize', type=int, default=256
+--no_flip', action='store_true'
+--serial_batches', action='store_true'
+--direction', type=str, default='AtoB'
+
+
+train.py
+9   data_loader = CreateDataLoader(opt)
+
+	data.__init__.py
+	44  def CreateDataLoader(opt):
+    		data_loader = CustomDatasetDataLoader()
+    		data_loader.initialize(opt)
+
+    52  class CustomDatasetDataLoader(BaseDataLoader):
+    		...
+    56		def initialize(self, opt):
+    			BaseDataLoader.initialize(self, opt)
+
+    			data.base_data_loader.py
+    			1  class BaseDataLoader():
+
+	58	self.dataset = create_dataset(opt)
+
+	36  def create_dataset(opt):
+			dataset = find_dataset_using_name(opt.dataset_mode)  # default='unaligned',base_options.py 27
+
+	7   def find_dataset_using_name(dataset_name):  # dataset_name = unaligned  
+			dataset_filename = "data." + dataset_name + "_dataset"  # = data.unaligned_dataset  
+			...  
+			target_dataset_name = dataset_name.replace('_', '') + 'dataset'  # = unaligneddataset
+			...
+			return dataset  # dataset = data.unaligned_dataset.py 8 class UnalignedDataset(BaseDataset):
+
+	59  self.dataloader = torch.utils.data.DataLoader(
+            self.dataset,
+            batch_size=opt.batch_size,
+            shuffle=not opt.serial_batches,
+            num_workers=int(opt.num_threads))
+
+
+10  dataset = data_loader.load_data()
