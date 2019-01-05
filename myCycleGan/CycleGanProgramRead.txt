@@ -18,9 +18,9 @@ train.py
     		data_loader = CustomDatasetDataLoader()
     		data_loader.initialize(opt)
 
-    52  class CustomDatasetDataLoader(BaseDataLoader):
+    	52  class CustomDatasetDataLoader(BaseDataLoader):
     		...
-    56		def initialize(self, opt):
+    	56		def initialize(self, opt):
     			BaseDataLoader.initialize(self, opt)
 
     			data.base_data_loader.py
