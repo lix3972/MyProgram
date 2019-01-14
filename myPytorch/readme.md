@@ -1,4 +1,4 @@
-### 剪切图片
+### 1.剪切图片
 import torchvision.transforms as transforms  
 from PIL import Image  
 img = Image.open(A_path).convert('RGB')  # 读取图片img.size=w×h ，img.mode='RGB'  
