@@ -7,23 +7,26 @@ from itertools import chain
 from matplotlib import pyplot as plt
 import random
 import scipy
+import scipy.misc
 import numpy as np
 from PIL import Image
 import torch.utils.data as data
 import torchvision.transforms as transforms
+from skimage import io
+import utils.LocationCrop as Lcrop
+from utils.LocationCrop import *
+from data.image_folder import make_dataset, get_specify_filenames, read_npy
+# from utils.dataflip import *
+# from data_process import *
 
-import data.LocationCrop as Lcrop
-# from data.crowd_dataset import CrowdDataset
-from models.acscp_model import *
-# from models.losses import *
-from data.LocationCrop import *
-from utils.loadVgg import loadVgg2
-from data.image_folder import make_dataset, get_npy_filenames, read_npy
-from utils.dataflip import *
-from data_process import *
+def read_image( fileName ):
+    image = io.imread(fileName)
+    image = image.astype(np.float32) / 255.
+    image = image.transpose(2, 0, 1)
+    return image
 
 # 行=高=h=y=5      列=宽=w=x=6    横轴x,纵轴y   最后变换完成,两组数据相同
-a0=[[0,1,2,3,4,5],[10,11,12,13,14,15],[20,21,22,23,24,25],[30,31,32,33,34,35],[40,41,42,43,44,45]]  # 原始数据 5行 6列:h=5,w=6
+a0=[[0.0,1,2,3,4,5],[10,11,12,13,14,15],[20,21,22,23,24,25],[30,31,32,33,34,35],[40,41,42,43,44,45]]  # 原始数据 5行 6列:h=5,w=6
 a=[a0,a0,a0]  # 3通道 3*5*6
 a_npy=np.array(a)          # npy格式a 3*5*6    作为image用       3*h*w
 b_npy=np.array(a0)         # npy格式a0  5*6    作为mp用(密度图)   h*w
@@ -52,10 +55,14 @@ B_npy_crop2 = B_npy_crop.transpose(1, 2, 0) # h*w*3  2*4*3  切出的值 12 13 1
 A_img_crop_tensor = transforms.ToTensor()(A_img_crop)  # 3*2*4
 B_npy_crop2_tensor = transforms.ToTensor()(B_npy_crop2)  # 3*2*4
     # 方法2 先转换为tensor 再切
+A_img_ToTensor = transforms.ToTensor()(A_img)  #   6*5 => 3*5*6;   w*h(PIL_img) => 3*h*w(ToTensor)
+B_npy_ToTensor = transforms.ToTensor()(B_npy)  # 3*5*6 => 6*3*5; 3*h*w(npy) => w*3*h(ToTensor)
+B_npy_tensor = torch.tensor(B_npy)             # 3*5*6 => 3*5*6; 3*h*w(npy) => 3*h*w(tensor)
+
 # ================= 水平翻转 ==================================================================
 # if random.random() < 0.5:
-A_hflip = hflip_T(A_img_crop_tensor)
-B_hflip = hflip_T(B_npy_crop2_tensor)
+# A_hflip = hflip_T(A_img_crop_tensor)
+# B_hflip = hflip_T(B_npy_crop2_tensor)
 
 print('ok')
 
